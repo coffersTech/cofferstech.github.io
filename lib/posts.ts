@@ -38,6 +38,8 @@ export function getPostMetadata(): PostMetadata[] {
     return posts.sort((a, b) => (new Date(a.date) < new Date(b.date) ? 1 : -1));
 }
 
+export const getSortedPostsData = getPostMetadata;
+
 export function getPostContent(slug: string) {
     const filePath = path.join(postsDirectory, `${slug}.mdx`);
 

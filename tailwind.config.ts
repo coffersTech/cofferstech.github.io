@@ -9,11 +9,12 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                "primary": "#0df20d",
+                "primary": "#00FF00", // Neon Green
                 "accent-blue": "#00f0ff",
                 "background-light": "#f5f8f5",
-                "background-dark": "#000000",
-                'brand-green': '#00FF00', // 你的饭桶绿
+                "background-dark": "#0A0A0A", // Terminal Black
+                "terminal-grey": "#E0E0E0",
+                'brand-green': '#00FF00',
                 'brand-black': '#0A0A0A',
             },
             fontFamily: {

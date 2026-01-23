@@ -1,31 +1,35 @@
 export interface Project {
     name: string;
     description: string;
-    tags: string[];
-    status: "Dev" | "Beta" | "Prod";
-    link: string;
+    techStack: string[];
+    status: "Dev" | "Beta" | "Prod" | "Archived";
+    githubUrl: string;
+    featured: boolean;
 }
 
-export const projects: Project[] = [
+export const PROJECTS: Project[] = [
     {
-        name: "Rice Bucket Logs",
-        description: "A digital journal focused on Go microservices and AI.",
-        tags: ["Next.js", "Tailwind", "TypeScript"],
-        status: "Dev",
-        link: "https://github.com/copycode-ryan",
-    },
-    {
-        name: "Go Microservice Starter",
-        description: "High-performance gRPC microservice template with ProtoBuf.",
-        tags: ["Go", "gRPC", "Docker"],
+        name: "NanoLog",
+        description: "A lightweight, zero-dependency structured logger for Go services.",
+        techStack: ["Go", "Performance", "Zero-alloc"],
         status: "Prod",
-        link: "https://github.com/copycode-ryan",
+        githubUrl: "https://github.com/copycode-ryan/nanolog",
+        featured: true,
     },
     {
-        name: "AI Sandbox",
-        description: "Experimental environment for reinforcement learning.",
-        tags: ["Python", "PyTorch", "AI"],
+        name: "VeloxSync",
+        description: "Real-time state synchronization engine for collaborative apps.",
+        techStack: ["Rust", "WebSockets", "CRDT"],
         status: "Beta",
-        link: "https://github.com/copycode-ryan",
+        githubUrl: "https://github.com/copycode-ryan/veloxsync",
+        featured: true,
+    },
+    {
+        name: "LUMA",
+        description: "AI-driven layout generator for modern web interfaces.",
+        techStack: ["TypeScript", "Next.js", "OpenAI"],
+        status: "Dev",
+        githubUrl: "https://github.com/copycode-ryan/luma",
+        featured: true,
     },
 ];

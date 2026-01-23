@@ -1,9 +1,10 @@
-import { projects } from "@/config/projects";
+import { PROJECTS } from "@/config/projects";
 
-const statusColors = {
+const statusColors: Record<string, string> = {
     Dev: "border-accent-blue text-accent-blue bg-accent-blue/10",
     Beta: "border-primary text-primary bg-primary/10",
     Prod: "border-[#666] text-[#666] bg-[#111]",
+    Archived: "border-red-500 text-red-500 bg-red-500/10",
 };
 
 export default function ProjectShowcase() {
@@ -15,15 +16,15 @@ export default function ProjectShowcase() {
                     项目展示 (Projects)
                 </h3>
                 <div className="text-xs text-[#444] font-mono">
-                    TOTAL: {projects.length}
+                    TOTAL: {PROJECTS.length}
                 </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {projects.map((project, index) => (
+                {PROJECTS.map((project, index) => (
                     <a
                         key={index}
-                        href={project.link}
+                        href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group relative p-6 rounded-lg border border-[#333] bg-[#0a0a0a] hover:border-primary/50 transition-all overflow-hidden"
@@ -36,9 +37,16 @@ export default function ProjectShowcase() {
                                 <h4 className="text-lg font-bold text-white group-hover:text-primary transition-colors">
                                     {project.name}
                                 </h4>
-                                <span className={`px-2 py-0.5 text-[10px] font-bold rounded border ${statusColors[project.status]}`}>
-                                    {project.status.toUpperCase()}
-                                </span>
+                                <div className="flex gap-2">
+                                    {project.featured && (
+                                        <span className="px-2 py-0.5 text-[10px] font-bold rounded border border-yellow-500 text-yellow-500 bg-yellow-500/10">
+                                            STAR
+                                        </span>
+                                    )}
+                                    <span className={`px-2 py-0.5 text-[10px] font-bold rounded border ${statusColors[project.status]}`}>
+                                        {project.status.toUpperCase()}
+                                    </span>
+                                </div>
                             </div>
 
                             <p className="text-sm text-[#888] line-clamp-2">
@@ -46,9 +54,9 @@ export default function ProjectShowcase() {
                             </p>
 
                             <div className="flex flex-wrap gap-2 mt-auto">
-                                {project.tags.map((tag) => (
-                                    <span key={tag} className="text-xs font-mono text-[#555] bg-[#1a1a1a] px-2 py-1 rounded">
-                                        #{tag}
+                                {project.techStack.map((tech) => (
+                                    <span key={tech} className="text-xs font-mono text-[#555] bg-[#1a1a1a] px-2 py-1 rounded">
+                                        #{tech}
                                     </span>
                                 ))}
                             </div>
