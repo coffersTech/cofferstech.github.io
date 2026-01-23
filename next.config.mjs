@@ -1,5 +1,5 @@
 const isProd = process.env.NODE_ENV === 'production';
-const repoName = 'copycode-ryan.github.io'; // 你的仓库名
+const repoName = 'cofferstech.github.io'; // 你的仓库名
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
