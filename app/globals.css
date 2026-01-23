@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+.pixel-grid {
+  background-image: radial-gradient(circle, #111 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.scanline {
+  width: 100%;
+  height: 2px;
+  background: rgba(13, 242, 13, 0.1);
+  position: absolute;
+  pointer-events: none;
+  z-index: 50;
+  box-shadow: 0 0 10px rgba(13, 242, 13, 0.2);
+}
+
+.log-entry:hover {
+  background: rgba(13, 242, 13, 0.05);
+  backdrop-filter: blur(4px);
+  box-shadow: inset 0 0 15px rgba(13, 242, 13, 0.1);
+}
+
+.wireframe-animate {
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateY(0deg) rotateX(15deg);
+  }
+
+  to {
+    transform: rotateY(360deg) rotateX(15deg);
+  }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+  from,
+  to {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
