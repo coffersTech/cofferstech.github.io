@@ -41,7 +41,8 @@ export const TOOLS_CONFIG: ToolItem[] = [
         description: '校验、美化及压缩 JSON 数据',
         icon: 'FileJson',
         category: ToolCategory.DEV,
-        status: 'dev'
+        status: 'ready',
+        width: 'max-w-4xl'
     },
     {
         id: 'base64',

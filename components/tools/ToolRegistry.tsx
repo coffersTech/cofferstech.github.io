@@ -6,8 +6,13 @@ const TimestampConverter = dynamic(() => import('./apps/TimestampConverter'), {
     loading: () => <div className="p-8 text-center text-primary font-mono animate-pulse">[ LOADING_MODULE... ]</div>
 });
 
+const JsonParser = dynamic(() => import('./apps/JsonParser'), {
+    loading: () => <div className="p-8 text-center text-primary font-mono animate-pulse">[ LOADING_MODULE... ]</div>
+});
+
 export const TOOL_COMPONENTS: Record<string, ReactNode> = {
     'timestamp': <TimestampConverter />,
+    'json-parser': <JsonParser />,
 };
 
 export function getToolComponent(toolId: string): ReactNode {

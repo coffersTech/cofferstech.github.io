@@ -71,7 +71,7 @@ export default function ToolDrawer({ isOpen, onClose, title, children, width = '
 
                         {/* Body - Main Content Area */}
                         <div className="flex-1 p-6 relative z-10 overflow-y-auto no-scrollbar">
-                            <div className="max-w-3xl mx-auto py-8">
+                            <div className={`${width} mx-auto py-8`}>
                                 {children}
                             </div>
                         </div>
