@@ -13,6 +13,9 @@ const navItems = [
 export default function Navbar() {
     const pathname = usePathname();
 
+    // Helper to normalize paths for comparison (remove trailing slashes)
+    const normalizePath = (p: string) => p.replace(/\/$/, '') || '/';
+
     return (
         <header className="sticky top-0 z-50 w-full border-b border-[#222] bg-background-dark/80 backdrop-blur-md">
             <div className="max-w-[1200px] mx-auto flex items-center px-6 h-14">
@@ -24,7 +27,13 @@ export default function Navbar() {
                 {/* Center: Nav */}
                 <nav className="flex h-full items-end gap-1 pt-2 overflow-x-auto no-scrollbar">
                     {navItems.map((item) => {
-                        const isActive = pathname === item.href;
+                        const normalizedCurrent = normalizePath(pathname);
+                        const normalizedItem = normalizePath(item.href);
+
+                        // Active if exact match OR if it's the root and we're on a sub-route (like /blog)
+                        const isActive = normalizedCurrent === normalizedItem ||
+                            (normalizedItem === '/' && normalizedCurrent.startsWith('/blog'));
+
                         return (
                             <Link
                                 key={item.href}

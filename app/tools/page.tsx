@@ -97,6 +97,7 @@ export default function ToolsPage() {
                 isOpen={!!activeToolId}
                 onClose={() => setActiveToolId(null)}
                 title={activeTool?.name || ''}
+                width={activeToolId === 'timestamp' ? 'max-w-4xl' : 'max-w-3xl'}
             >
                 {activeTool && <activeTool.component />}
             </ToolDrawer>

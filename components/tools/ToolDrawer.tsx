@@ -9,9 +9,10 @@ interface ToolDrawerProps {
     onClose: () => void;
     title: string;
     children: React.ReactNode;
+    width?: string; // Optional width prop
 }
 
-export default function ToolDrawer({ isOpen, onClose, title, children }: ToolDrawerProps) {
+export default function ToolDrawer({ isOpen, onClose, title, children, width = 'max-w-3xl' }: ToolDrawerProps) {
     // Prevent scrolling behind the drawer
     useEffect(() => {
         if (isOpen) {
@@ -43,7 +44,7 @@ export default function ToolDrawer({ isOpen, onClose, title, children }: ToolDra
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className="relative w-full max-w-3xl h-full bg-[#0a0a0a] border-l border-primary/30 shadow-[-10px_0_50px_rgba(0,0,0,0.5)] overflow-hidden font-mono flex flex-col"
+                        className={`relative w-full ${width} h-full bg-[#0a0a0a] border-l border-primary/30 shadow-[-10px_0_50px_rgba(0,0,0,0.5)] overflow-hidden font-mono flex flex-col`}
                     >
                         {/* CRT Scanline Effect */}
                         <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-50 bg-[length:100%_2px,3px_100%]"></div>
@@ -70,7 +71,7 @@ export default function ToolDrawer({ isOpen, onClose, title, children }: ToolDra
 
                         {/* Body - Main Content Area */}
                         <div className="flex-1 p-6 relative z-10 overflow-y-auto no-scrollbar">
-                            <div className="max-w-2xl mx-auto py-8">
+                            <div className="max-w-3xl mx-auto py-8">
                                 {children}
                             </div>
                         </div>

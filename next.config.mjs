@@ -6,7 +6,6 @@ const nextConfig = {
     },
     swcMinify: true,
     transpilePackages: ['antd', '@ant-design/icons'],
-    trailingSlash: true,
 };
 
 export default nextConfig;
