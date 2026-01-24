@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { DatePicker, ConfigProvider, theme, Radio } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
-import locale from 'antd/es/date-picker/locale/zh_CN';
+import locale from 'antd/locale/zh_CN';
 import 'dayjs/locale/zh-cn';
 
 dayjs.locale('zh-cn');
