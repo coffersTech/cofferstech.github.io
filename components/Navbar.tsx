@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 const navItems = [
     { href: '/', label: 'index.md', icon: 'description' },
     { href: '/projects', label: 'projects.go', icon: 'code' },
-    { href: '#', label: 'notes.py', icon: 'psychology' },
+    { href: '/notes', label: 'notes.py', icon: 'psychology' },
 ];
 
 export default function Navbar() {
@@ -28,8 +28,8 @@ export default function Navbar() {
                                 key={item.href}
                                 href={item.href}
                                 className={`flex items-center gap-2 px-4 py-2 border-t border-x rounded-t-lg text-sm transition-colors ${isActive
-                                        ? 'bg-[#1a1a1a] border-[#333] text-white'
-                                        : 'border-transparent hover:bg-[#111] text-[#666]'
+                                    ? 'bg-[#1a1a1a] border-[#333] text-white'
+                                    : 'border-transparent hover:bg-[#111] text-[#666]'
                                     }`}
                             >
                                 <span className={`material-symbols-outlined text-[16px] ${isActive ? 'text-primary' : ''}`}>

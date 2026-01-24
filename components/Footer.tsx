@@ -42,7 +42,7 @@ export default function Footer() {
                         ))}
                     </div>
                     <p className="text-[10px] text-[#444] font-mono mt-auto">
-                        © 2023 RICE_BUCKET_LOGS v2.4.0. Built with minimal footprint.
+                        © 2026 饭桶日志. All rights reserved.
                     </p>
                 </div>
             </div>
