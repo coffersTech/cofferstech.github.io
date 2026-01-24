@@ -1,11 +1,13 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 const navItems = [
     { href: '/', label: 'index.md', icon: 'description' },
     { href: '/projects', label: 'projects.go', icon: 'code' },
     { href: '/notes', label: 'notes.py', icon: 'psychology' },
+    { href: '/tools', label: 'tools.sh', icon: 'build' },
 ];
 
 export default function Navbar() {
@@ -24,7 +26,7 @@ export default function Navbar() {
                     {navItems.map((item) => {
                         const isActive = pathname === item.href;
                         return (
-                            <a
+                            <Link
                                 key={item.href}
                                 href={item.href}
                                 className={`flex items-center gap-2 px-4 py-2 border-t border-x rounded-t-lg text-sm transition-colors ${isActive
@@ -36,7 +38,7 @@ export default function Navbar() {
                                     {item.icon}
                                 </span>
                                 {item.label}
-                            </a>
+                            </Link>
                         );
                     })}
                 </nav>

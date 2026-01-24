@@ -9,10 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.1.0",
+    "antd": "^6.2.1",
     "date-fns": "^3.6.0",
+    "dayjs": "^1.11.19",
     "framer-motion": "^11.0.0",
     "gray-matter": "^4.0.3",
     "katex": "^0.16.27",
+    "lucide-react": "^0.563.0",
     "next": "14.2.15",
     "next-mdx-remote": "^4.4.1",
     "react": "^18.3.1",
