@@ -1,7 +1,14 @@
+import MatrixRain from "./MatrixRain";
+
 export default function Hero() {
     return (
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20 min-h-[400px]">
-            <div className="flex flex-col gap-6">
+        <section className="relative grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20 min-h-[400px] border border-primary/50 rounded-lg p-8 bg-background-dark/50">
+            {/* Matrix Rain Effect - Full Hero Background */}
+            <div className="absolute inset-0 z-0 overflow-hidden">
+                <MatrixRain />
+            </div>
+
+            <div className="flex flex-col gap-6 relative z-10">
                 <div className="font-mono text-sm text-[#444] mb-2">
                     rice-bucket-logs:~ user$ ./initialize_landing_page
                 </div>
@@ -15,7 +22,7 @@ export default function Hero() {
                     </div>
                 </div>
                 <p className="text-[#888] text-lg max-w-md leading-relaxed">
-                    专注于 Go 微服务、AI 研究以及高效系统构建哲学的数字日志。
+                    以产品思维，构建全栈系统 (Building Full-Stack Systems with Product Thinking)
                 </p>
                 <div className="flex gap-4 mt-4">
                     <button className="bg-primary text-black font-bold px-8 py-3 rounded-lg flex items-center gap-2 hover:bg-primary/90 transition-all">
@@ -28,7 +35,7 @@ export default function Hero() {
                 </div>
             </div>
             {/* 3D Wireframe Placeholder */}
-            <div className="relative flex items-center justify-center h-full">
+            <div className="relative flex items-center justify-center h-full z-10">
                 <div className="relative w-72 h-72 md:w-96 md:h-96 wireframe-animate" style={{ perspective: "1000px", transformStyle: "preserve-3d" }}>
                     {/* Outer sphere/geometric wireframe using SVG */}
                     <svg className="absolute inset-0 w-full h-full opacity-40" viewBox="0 0 100 100">
