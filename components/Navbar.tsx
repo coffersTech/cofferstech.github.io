@@ -1,4 +1,16 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
+
+const navItems = [
+    { href: '/', label: 'index.md', icon: 'description' },
+    { href: '/projects', label: 'projects.go', icon: 'code' },
+    { href: '#', label: 'notes.py', icon: 'psychology' },
+];
+
 export default function Navbar() {
+    const pathname = usePathname();
+
     return (
         <header className="sticky top-0 z-50 w-full border-b border-[#222] bg-background-dark/80 backdrop-blur-md">
             <div className="max-w-[1200px] mx-auto flex items-center px-6 h-14">
@@ -9,18 +21,24 @@ export default function Navbar() {
                 </div>
                 {/* Center: Nav */}
                 <nav className="flex h-full items-end gap-1 pt-2 overflow-x-auto no-scrollbar">
-                    <a className="flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] border-t border-x border-[#333] rounded-t-lg text-white text-sm" href="#">
-                        <span className="material-symbols-outlined text-[16px] text-primary">description</span>
-                        index.md
-                    </a>
-                    <a className="flex items-center gap-2 px-4 py-2 border-t border-x border-transparent hover:bg-[#111] transition-colors rounded-t-lg text-[#666] text-sm" href="#">
-                        <span className="material-symbols-outlined text-[16px]">code</span>
-                        projects.go
-                    </a>
-                    <a className="flex items-center gap-2 px-4 py-2 border-t border-x border-transparent hover:bg-[#111] transition-colors rounded-t-lg text-[#666] text-sm" href="#">
-                        <span className="material-symbols-outlined text-[16px]">psychology</span>
-                        notes.py
-                    </a>
+                    {navItems.map((item) => {
+                        const isActive = pathname === item.href;
+                        return (
+                            <a
+                                key={item.href}
+                                href={item.href}
+                                className={`flex items-center gap-2 px-4 py-2 border-t border-x rounded-t-lg text-sm transition-colors ${isActive
+                                        ? 'bg-[#1a1a1a] border-[#333] text-white'
+                                        : 'border-transparent hover:bg-[#111] text-[#666]'
+                                    }`}
+                            >
+                                <span className={`material-symbols-outlined text-[16px] ${isActive ? 'text-primary' : ''}`}>
+                                    {item.icon}
+                                </span>
+                                {item.label}
+                            </a>
+                        );
+                    })}
                 </nav>
                 {/* Right: Status & Icons */}
                 <div className="flex-1 hidden md:flex items-center justify-end gap-4 text-[#444]">
