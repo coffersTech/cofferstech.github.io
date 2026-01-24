@@ -1,46 +1,65 @@
-'use client';
-
 import { motion } from 'framer-motion';
-import { LucideIcon } from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
+import { ToolItem } from '@/config/tools';
+import { message } from 'antd';
 
 interface ToolCardProps {
-    id: string;
-    name: string;
-    description?: string;
-    icon: LucideIcon;
+    tool: ToolItem;
     onClick: (id: string) => void;
 }
 
-export default function ToolCard({ id, name, icon: Icon, onClick }: ToolCardProps) {
+export default function ToolCard({ tool, onClick }: ToolCardProps) {
+    const { id, name, description, icon, status } = tool;
+    const isDev = status === 'dev';
+
+    // Get the icon component dynamically
+    const IconComponent = (LucideIcons as any)[icon] || LucideIcons.HelpCircle;
+
+    const handleClick = () => {
+        if (isDev) {
+            message.info({
+                content: '[ 模块构建中: 请稍后再试 ]',
+                className: 'hacker-message',
+                style: { marginTop: '10vh' }
+            });
+            return;
+        }
+        onClick(id);
+    };
+
     return (
-        <motion.button
-            whileHover={{ scale: 1.05, translateY: -5 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => onClick(id)}
-            className="group relative aspect-square w-full rounded-xl bg-gray-900/40 border border-white/5 backdrop-blur-md flex flex-col items-center justify-center p-6 transition-all hover:border-primary/50 hover:shadow-[0_0_30px_rgba(0,255,0,0.1)] overflow-hidden"
+        <motion.div
+            whileHover={!isDev ? { scale: 1.02, translateY: -5 } : {}}
+            whileTap={!isDev ? { scale: 0.98 } : {}}
+            onClick={handleClick}
+            className={`group relative aspect-square bg-black border ${isDev ? 'border-white/5 opacity-40 cursor-not-allowed' : 'border-white/10 cursor-pointer hover:border-primary/50'
+                } rounded-xl p-6 flex flex-col items-center justify-center transition-all duration-300 shadow-[0_0_0px_rgba(0,0,0,0)] hover:shadow-[0_0_20px_rgba(0,255,0,0.1)]`}
         >
-            {/* Background Grid Accent */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity pointer-events-none"
-                style={{ backgroundImage: 'radial-gradient(circle, #00ff00 1px, transparent 1px)', backgroundSize: '15px 15px' }}>
+            {/* Status Indicator */}
+            {isDev && (
+                <div className="absolute top-3 right-3 text-gray-700">
+                    <LucideIcons.Lock size={14} />
+                </div>
+            )}
+
+            <div className={`p-4 rounded-full bg-white/5 mb-4 group-hover:bg-primary/10 transition-colors ${!isDev && 'group-hover:text-primary'}`}>
+                <IconComponent size={32} strokeWidth={1.5} />
             </div>
 
-            <div className="relative z-10 flex flex-col items-center gap-4">
-                <div className="p-4 rounded-2xl bg-black/50 border border-white/10 group-hover:border-primary/30 group-hover:text-primary transition-colors">
-                    <Icon size={40} strokeWidth={1.5} className="text-gray-400 group-hover:text-primary transition-colors" />
-                </div>
-                <div className="text-center">
-                    <h3 className="text-sm font-bold tracking-widest text-gray-300 group-hover:text-white transition-colors uppercase">
-                        {name}
-                    </h3>
-                    <div className="mt-1 h-0.5 w-0 bg-primary group-hover:w-full transition-all mx-auto"></div>
-                </div>
-            </div>
+            <h3 className={`text-sm font-bold tracking-widest uppercase mb-2 ${!isDev ? 'group-hover:text-primary' : 'text-gray-600'}`}>
+                {name}
+            </h3>
 
-            {/* Corner Decorative Elements */}
-            <div className="absolute top-2 left-2 w-1.5 h-1.5 border-t border-l border-white/20 group-hover:border-primary transition-colors"></div>
-            <div className="absolute top-2 right-2 w-1.5 h-1.5 border-t border-r border-white/20 group-hover:border-primary transition-colors"></div>
-            <div className="absolute bottom-2 left-2 w-1.5 h-1.5 border-b border-l border-white/20 group-hover:border-primary transition-colors"></div>
-            <div className="absolute bottom-2 right-2 w-1.5 h-1.5 border-b border-r border-white/20 group-hover:border-primary transition-colors"></div>
-        </motion.button>
+            <p className="text-[10px] text-gray-500 text-center leading-relaxed px-2">
+                {description}
+            </p>
+
+            {/* Terminal Prompt Indicator */}
+            {!isDev && (
+                <div className="absolute bottom-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-primary text-[10px] animate-pulse">_ EXEC_MODULE</span>
+                </div>
+            )}
+        </motion.div>
     );
 }
