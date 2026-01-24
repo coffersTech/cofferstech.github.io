@@ -37,6 +37,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
                 options={{
                     mdxOptions: {
                         remarkPlugins: [remarkMath],
+                        // @ts-expect-error - Remark/Rehype types mismatch with next-mdx-remote
                         rehypePlugins: [rehypeKatex, rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]],
                     }
                 }}
