@@ -1,10 +1,34 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import MatrixRain from "./MatrixRain";
+import SystemLogModal from "./SystemLogModal";
+
+const FIRST_VISIT_KEY = 'rice-bucket-logs-visited';
 
 export default function Hero() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // Auto-show modal on first visit
+    useEffect(() => {
+        // SSR safety check
+        if (typeof window === 'undefined') return;
+
+        const hasVisited = localStorage.getItem(FIRST_VISIT_KEY);
+        if (!hasVisited) {
+            // First visit - show modal after a short delay
+            const timer = setTimeout(() => {
+                setIsModalOpen(true);
+                localStorage.setItem(FIRST_VISIT_KEY, 'true');
+            }, 800);
+            return () => clearTimeout(timer);
+        }
+    }, []);
+
     return (
         <section className="relative grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20 min-h-[400px] border border-primary/50 rounded-lg p-8 bg-background-dark/50">
             {/* Matrix Rain Effect - Full Hero Background */}
-            <div className="absolute inset-0 z-0 overflow-hidden">
+            <div className="absolute inset-0 z-0 overflow-hidden rounded-lg">
                 <MatrixRain />
             </div>
 
@@ -25,7 +49,10 @@ export default function Hero() {
                     以产品思维，构建全栈系统 (Building Full-Stack Systems with Product Thinking)
                 </p>
                 <div className="flex gap-4 mt-4">
-                    <button className="bg-primary text-black font-bold px-8 py-3 rounded-lg flex items-center gap-2 hover:bg-primary/90 transition-all">
+                    <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="bg-primary text-black font-bold px-8 py-3 rounded-lg flex items-center gap-2 hover:bg-primary/90 transition-all"
+                    >
                         <span className="material-symbols-outlined font-bold">visibility</span>
                         cat system.log
                     </button>
@@ -55,6 +82,9 @@ export default function Hero() {
                 </div>
                 <div className="absolute inset-0 bg-accent-blue/5 blur-[100px] rounded-full -z-10"></div>
             </div>
+
+            {/* System Log Modal */}
+            <SystemLogModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </section>
     );
 }
