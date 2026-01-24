@@ -9,7 +9,7 @@ export default function Home() {
   const allPostsData = getSortedPostsData();
 
   return (
-    <div className="relative min-h-screen w-full flex flex-col overflow-x-hidden pixel-grid">
+    <div className="relative min-h-screen w-full flex flex-col overflow-x-hidden pixel-grid bg-background-dark">
       <Navbar />
 
       {/* Main Content */}

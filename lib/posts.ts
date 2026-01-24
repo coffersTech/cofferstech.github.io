@@ -50,6 +50,8 @@ export function getPostContent(slug: string) {
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContent);
 
+    const headings = extractHeadings(content);
+
     return {
         metadata: {
             title: data.title,
@@ -58,5 +60,37 @@ export function getPostContent(slug: string) {
             ...data,
         } as PostMetadata,
         content,
+        headings,
     };
+}
+
+function extractHeadings(content: string) {
+    const headings: { level: number; text: string; id: string }[] = [];
+    const lines = content.split('\n');
+    let inCodeBlock = false;
+
+    lines.forEach((line) => {
+        if (line.trim().startsWith('```')) {
+            inCodeBlock = !inCodeBlock;
+            return;
+        }
+
+        if (inCodeBlock) return;
+
+        const match = line.match(/^(#{2,3})\s+(.*)$/);
+        if (match) {
+            const level = match[1].length;
+            const text = match[2].trim();
+            // Simple slug generation: lowercase, remove non-alphanumeric, replace spaces with hyphens
+            const id = text
+                .toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .trim()
+                .replace(/\s+/g, '-');
+
+            headings.push({ level, text, id });
+        }
+    });
+
+    return headings;
 }

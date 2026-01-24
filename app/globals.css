@@ -80,3 +80,18 @@
 .border-glow {
   box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
 }
+
+/* Wireframe 3D Rotate */
+.wireframe-animate {
+  animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+
+  to {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
