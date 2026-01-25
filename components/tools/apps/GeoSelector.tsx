@@ -8,6 +8,7 @@ import { Map, ArrowLeft, Download, Link, Terminal, ChevronRight, Globe, Info } f
 import { motion, AnimatePresence } from 'framer-motion';
 
 const API_BASE = 'https://geo.datav.aliyun.com/areas_v3/bound/';
+const LOCAL_BASE = '/data/geo/';
 const ROOT_ADCODE = '100000'; // China
 
 interface GeoInfo {
@@ -25,6 +26,7 @@ export default function GeoSelector() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedFeature, setSelectedFeature] = useState<any>(null);
+    const [dataSource, setDataSource] = useState<'local' | 'remote' | null>(null);
 
     const chartRef = useRef<any>(null);
 
@@ -38,27 +40,62 @@ export default function GeoSelector() {
         setLoading(true);
         setError(null);
         try {
-            // Priority: _full.json for regions with children
-            let url = `${API_BASE}${adcode}_full.json`;
-            let response;
-            try {
-                response = await axios.get(url);
-            } catch (e) {
-                // Fallback to plain .json for districts/leaves
-                url = `${API_BASE}${adcode}.json`;
-                response = await axios.get(url);
+            let data = null;
+            let success = false;
+
+            // Try local cache first
+            const localUrls = [
+                `${LOCAL_BASE}${adcode}_full.json`,
+                `${LOCAL_BASE}${adcode}.json`
+            ];
+
+            for (const url of localUrls) {
+                try {
+                    const res = await axios.get(url);
+                    if (res.data) {
+                        data = res.data;
+                        success = true;
+                        setDataSource('local');
+                        break;
+                    }
+                } catch (e) {
+                    continue;
+                }
             }
 
-            const data = response.data;
-            setGeoData(data);
+            // Fallback to remote API if local fails
+            if (!success) {
+                const remoteUrls = [
+                    `${API_BASE}${adcode}_full.json`,
+                    `${API_BASE}${adcode}.json`
+                ];
 
-            // Register map with ECharts
-            echarts.registerMap('tactical-map', data);
+                for (const url of remoteUrls) {
+                    try {
+                        const res = await axios.get(url);
+                        if (res.data) {
+                            data = res.data;
+                            success = true;
+                            setDataSource('remote');
+                            break;
+                        }
+                    } catch (e) {
+                        continue;
+                    }
+                }
+            }
 
-            setLoading(false);
+            if (success && data) {
+                setGeoData(data);
+                // Register map with ECharts
+                echarts.registerMap('tactical-map', data);
+                setLoading(false);
+            } else {
+                throw new Error('NODE_NOT_FOUND');
+            }
         } catch (err) {
             console.error('Failed to fetch geo data:', err);
-            setError('访问拒绝: 数据节点未找到');
+            setError('访问拒绝: 数据节点未找到 (403/404)');
             setLoading(false);
         }
     };
@@ -182,10 +219,11 @@ export default function GeoSelector() {
         a.click();
     };
 
-    const copyApiUrl = () => {
-        const url = `${API_BASE}${currentAdcode}_full.json`;
+    const copyDataPath = () => {
+        const url = dataSource === 'local'
+            ? `${LOCAL_BASE}${currentAdcode}${geoData?.features?.length > 0 && !geoData.features[0].properties.childrenNum ? '' : '_full'}.json`
+            : `${API_BASE}${currentAdcode}_full.json`;
         navigator.clipboard.writeText(url);
-        // Toast logic could be added
     };
 
     const displayInfo = selectedFeature?.properties || geoData?.features?.[0]?.properties || { name: 'CHINA', adcode: ROOT_ADCODE, level: 'country' };
@@ -232,6 +270,11 @@ export default function GeoSelector() {
                                 <div className="text-[#00ff41] animate-pulse tracking-[0.5em] text-sm">
                                     -- 正在加载几何数据 --
                                 </div>
+                            </div>
+                        )}
+                        {!loading && dataSource && (
+                            <div className="absolute top-4 right-4 z-20 px-3 py-1 bg-black/80 border border-[#00ff41]/30 rounded text-[9px] font-bold tracking-widest text-[#00ff41]">
+                                [ 数据源: {dataSource === 'local' ? '本地存储' : '远程接口'} ]
                             </div>
                         )}
                         {!loading && geoData && (
@@ -294,11 +337,13 @@ export default function GeoSelector() {
                             <span className="text-[11px] font-bold tracking-[0.2em] text-[#00ff41]">下载 .JSON 数据</span>
                         </button>
                         <button
-                            onClick={copyApiUrl}
+                            onClick={copyDataPath}
                             className="w-full py-3 bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center gap-3 transition-all group"
                         >
                             <Link size={16} className="text-white/40 group-hover:text-white transition-colors" />
-                            <span className="text-[11px] font-bold tracking-[0.2em] text-white/40 group-hover:text-white">复制接口链接</span>
+                            <span className="text-[11px] font-bold tracking-[0.2em] text-white/40 group-hover:text-white">
+                                {dataSource === 'local' ? '复制本地路径' : '复制接口链接'}
+                            </span>
                         </button>
                     </section>
                 </div>
