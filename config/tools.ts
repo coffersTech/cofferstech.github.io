@@ -61,11 +61,11 @@ export const TOOLS_CONFIG: ToolItem[] = [
         status: 'ready'
     },
     {
-        id: 'lunch-rng',
-        name: '随机午餐',
-        description: '解决中午吃什么的世纪难题',
-        icon: 'Utensils',
-        category: ToolCategory.LIFE,
-        status: 'dev'
+        id: 'cidr-calculator',
+        name: 'CIDR 计算器',
+        description: 'CIDR 子网掩码计算与可视化',
+        icon: 'Network',
+        category: ToolCategory.OPS,
+        status: 'ready'
     }
 ];

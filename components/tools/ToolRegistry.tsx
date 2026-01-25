@@ -18,11 +18,16 @@ const CronScheduler = dynamic(() => import('./apps/CronScheduler'), {
     loading: () => <div className="p-8 text-center text-primary font-mono animate-pulse">[ LOADING_MODULE... ]</div>
 });
 
+const CidrCalculator = dynamic(() => import('./apps/CidrCalculator'), {
+    loading: () => <div className="p-8 text-center text-primary font-mono animate-pulse">[ LOADING_MODULE... ]</div>
+});
+
 export const TOOL_COMPONENTS: Record<string, ReactNode> = {
     'timestamp': <TimestampConverter />,
     'json-parser': <JsonParser />,
     'base64': <Base64Converter />,
     'cron-scheduler': <CronScheduler />,
+    'cidr-calculator': <CidrCalculator />,
 };
 
 export function getToolComponent(toolId: string): ReactNode {
