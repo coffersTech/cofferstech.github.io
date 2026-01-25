@@ -359,7 +359,7 @@ export default function FocusClock() {
                         className="flex flex-col items-center gap-3 group/cmd"
                     >
                         <div className="px-8 py-2 border border-white/20 bg-white/5 text-white/60 group-hover/cmd:border-white/60 group-hover/cmd:text-white transition-all text-sm font-bold tracking-[0.2em]">
-                            > 重置
+                            &gt; 重置
                         </div>
                         <div className="text-[9px] tracking-[0.3em] font-black text-white/20 group-hover/cmd:text-white/40 uppercase">
                             系统重启
