@@ -102,5 +102,14 @@ export const TOOLS_CONFIG: ToolItem[] = [
         category: ToolCategory.LIFE,
         status: 'ready',
         width: 'max-w-full'
+    },
+    {
+        id: 'geo-selector',
+        name: 'GeoJSON 选择器',
+        description: '地理围栏边界数据获取与下钻工具',
+        icon: 'Map',
+        category: ToolCategory.DEV,
+        status: 'ready',
+        width: 'max-w-full'
     }
 ];

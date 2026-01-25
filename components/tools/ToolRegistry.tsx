@@ -38,6 +38,10 @@ const FocusClock = dynamic(() => import('./apps/FocusClock'), {
     loading: () => <div className="p-8 text-center text-primary font-mono animate-pulse">[ LOADING_MODULE... ]</div>
 });
 
+const GeoSelector = dynamic(() => import('./apps/GeoSelector'), {
+    loading: () => <div className="p-8 text-center text-primary font-mono animate-pulse">[ LOADING_MODULE... ]</div>
+});
+
 export const TOOL_COMPONENTS: Record<string, ReactNode> = {
     'timestamp': <TimestampConverter />,
     'json-parser': <JsonParser />,
@@ -48,6 +52,7 @@ export const TOOL_COMPONENTS: Record<string, ReactNode> = {
     'math-render': <MathRender />,
     'lunch-rng': <LunchRng />,
     'focus-clock': <FocusClock />,
+    'geo-selector': <GeoSelector />,
 };
 
 export function getToolComponent(toolId: string): ReactNode {
