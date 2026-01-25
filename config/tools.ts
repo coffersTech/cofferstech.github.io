@@ -93,5 +93,14 @@ export const TOOLS_CONFIG: ToolItem[] = [
         category: ToolCategory.LIFE,
         status: 'ready',
         width: 'max-w-full'
+    },
+    {
+        id: 'focus-clock',
+        name: '番茄专注钟',
+        description: '极简主义赛博番茄钟，支持动态标题同步',
+        icon: 'Timer',
+        category: ToolCategory.LIFE,
+        status: 'ready',
+        width: 'max-w-full'
     }
 ];
