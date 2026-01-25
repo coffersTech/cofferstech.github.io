@@ -14,10 +14,15 @@ const Base64Converter = dynamic(() => import('./apps/Base64Converter'), {
     loading: () => <div className="p-8 text-center text-primary font-mono animate-pulse">[ LOADING_MODULE... ]</div>
 });
 
+const CronScheduler = dynamic(() => import('./apps/CronScheduler'), {
+    loading: () => <div className="p-8 text-center text-primary font-mono animate-pulse">[ LOADING_MODULE... ]</div>
+});
+
 export const TOOL_COMPONENTS: Record<string, ReactNode> = {
     'timestamp': <TimestampConverter />,
     'json-parser': <JsonParser />,
     'base64': <Base64Converter />,
+    'cron-scheduler': <CronScheduler />,
 };
 
 export function getToolComponent(toolId: string): ReactNode {

@@ -53,12 +53,12 @@ export const TOOLS_CONFIG: ToolItem[] = [
         status: 'ready'
     },
     {
-        id: 'cron-checker',
+        id: 'cron-scheduler',
         name: 'Cron 表达式',
         description: '解析及校验 Cron 表达式运行时间',
-        icon: 'Timer',
+        icon: 'CalendarClock',
         category: ToolCategory.OPS,
-        status: 'dev'
+        status: 'ready'
     },
     {
         id: 'lunch-rng',

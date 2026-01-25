@@ -11,6 +11,7 @@
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
     "antd": "^6.2.1",
+    "cronstrue": "^3.9.0",
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.19",
     "framer-motion": "^11.0.0",
