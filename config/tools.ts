@@ -84,5 +84,14 @@ export const TOOLS_CONFIG: ToolItem[] = [
         category: ToolCategory.AI,
         status: 'ready',
         width: 'max-w-full'
+    },
+    {
+        id: 'lunch-rng',
+        name: '今天吃啥',
+        description: '卫星定位随机食物选择器',
+        icon: 'Utensils',
+        category: ToolCategory.LIFE,
+        status: 'ready',
+        width: 'max-w-full'
     }
 ];
