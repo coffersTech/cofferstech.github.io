@@ -34,3 +34,32 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Content & MDX Specification
+
+所有内容发布需遵循以下 **Hacker Terminal (赛博终端)** 格式规范。
+
+### 1. Frontmatter (元数据)
+文件名建议使用 `kebab-case.mdx`，放置于 `/posts` 目录。
+
+```yaml
+---
+title: "任务标题 (e.g. 0x0A: 核心协议)"
+date: "YYYY-MM-DD"
+description: "简短的核心描述"
+tags: ["System", "DevLog", "Philosophy"]
+---
+```
+
+### 2. Specialized Blockquotes (特殊引用)
+使用以下语义化前缀来模拟系统日志输出：
+
+- `> **[INFO] ...**`: 常规信息流。
+- `> **[STATUS] ...**`: 当前系统/任务状态。
+- `> **[CAUTION] ...**`: 警告或内部敏感信息。
+- `> **[IDENTITY] ...**`: 执行程序的身份标识。
+
+### 3. Visual Guidelines (视觉准则)
+- **代码块**: 优先使用脚本语言 (bash, python, go) 展示技术细节。
+- **术语**: 鼓励使用技术术语 (e.g. `Deployment`, `Handshake`, `Protocol`) 以增强沉浸感。
+- **ASCII**: 适当使用 ASCII 装饰或十六进制编号 (0x01, 0x02...)。

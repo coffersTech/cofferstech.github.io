@@ -1,0 +1,115 @@
+---
+title: "Jenkins 自动化构建协议 (Vue)"
+date: "2026-01-25"
+description: "建立从本地代码仓库到 Nginx 生产环境的自动化传输隧道。"
+tags: ["DevOps", "Jenkins", "Vue", "Automation"]
+---
+
+> **[IDENTITY] DevOps Operator**
+> **[STATUS] Pipeline Configuration Initiated...**
+> **[TARGET] Remote Server (Nginx)**
+
+## 0x00 协议概述 (Protocol Overview)
+
+在旧时代，前端交付依赖于手动编译与 FTP 传输，这种低效的 I/O 操作极易导致版本不一致 (Consistency Error)。
+本日志记录了如何利用 Jenkins 编排一套自动化的 CI/CD 流水线，将 Vue 项目编译产物 (`/dist`) 无损传输至远程 Nginx 服务器。
+
+### 所需核心模块 (Modules):
+
+- **Source**: Git Repository (Gitee/GitLab)
+- **CI Engine**: Jenkins + NodeJS Plugin
+- **Transport**: Publish Over SSH
+
+## 0x01 环境握手 (Environment Handshake)
+
+### 1. 插件注入 (Plugin Injection)
+
+进入 Jenkins 控制台，激活以下关键组件：
+
+- **NodeJS Plugin**: 提供 Node 环境支持。
+- **Publish Over SSH**: 建立 SSH 安全传输通道。
+
+### 2. SSH 密钥交换
+
+为了打通 Jenkins 与目标服务器的物理链路，需配置 SSH Key。
+
+> **[CAUTION] 生产环境禁止使用明文密码。请使用 RSA 密钥对。**
+
+```bash
+# 在 Jenkins 服务器生成密钥
+ssh-keygen -t rsa -C "jenkins-bot"
+
+# 将公钥注入目标服务器
+ssh-copy-id root@192.168.x.x
+```
+
+在 `Jenkins System Configuration > Publish over SSH` 中填入私钥 (Private Key) 并测试连接：
+
+> **[STATUS] Test Configuration: SUCCESS**
+
+## 0x02 构建指令集 (Build Sequence)
+
+新建 Freestyle Project，配置源码管理指向 Git 仓库。
+
+### 编译脚本 (Shell Script)
+
+在 **Build Environment** 中勾选 `Provide Node & npm bin/ folder to PATH`，然后在构建步骤中执行：
+
+```bash
+#!/bin/bash
+echo "> [INFO] Check Environment..."
+node -v
+npm -v
+
+echo "> [STATUS] Installing Dependencies..."
+# 使用淘宝镜像加速数据流
+npm install --registry=https://registry.npmmirror.com
+
+echo "> [STATUS] Compiling Assets..."
+npm run build
+
+echo "> [INFO] Build Artifact Ready: ./dist"
+```
+
+## 0x03 交付与部署 (Payload Delivery)
+
+构建完成后，需要将静态资源“瞬移”至 Nginx 目录。
+
+### SSH 传输配置 (Post-build Actions)
+
+选择 **Send build artifacts over SSH**，参数如下：
+
+| Parameter | Value | Note |
+| :--- | :--- | :--- |
+| **Source files** | `dist/**` | 抓取所有编译产物 |
+| **Remove prefix** | `dist` | 移除目录前缀，只传内容 |
+| **Remote directory** | `/data/nginx/html/vue-project` | 目标着陆区 |
+
+### 远程执行脚本 (Remote Exec)
+
+文件传输完毕后，在目标服务器执行以下收尾指令：
+
+```bash
+# 切换至 Nginx 目录
+cd /data/nginx/html/vue-project
+
+# 强制权限覆盖
+chown -R nginx:nginx .
+chmod -R 755 .
+
+# 记录部署日志
+echo "Deployed at $(date)" >> deploy.log
+
+# 刷新网关缓存 (可选)
+# nginx -s reload
+
+echo "> [SUCCESS] System Online."
+```
+
+## 0x04 异常处理 (Exception Handling)
+
+> **[INFO] 如果构建失败，请检查以下常见故障点：**
+
+1. **Node 版本不匹配**: 导致 `sass-loader` 或 `node-sass` 编译溢出。
+2. **SSH 权限拒绝**: 目标文件夹 `chown` 权限归属错误。
+3. **缓存污染**: 尝试删除 `node_modules` 重新 `npm install`。
