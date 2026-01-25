@@ -52,7 +52,11 @@ export default function ToolDrawer({ isOpen, onClose, title, children, width = '
                         {/* Side Header */}
                         <div className="flex items-center justify-between px-6 py-4 border-b border-primary/20 bg-[#0d0d0d]">
                             <div className="flex items-center gap-4">
-                                <div className="flex gap-1.5">
+                                <div
+                                    className="flex gap-1.5 cursor-pointer hover:opacity-70 transition-opacity"
+                                    onClick={onClose}
+                                    title="Close"
+                                >
                                     <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></div>
                                     <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
                                     <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></div>

@@ -50,7 +50,7 @@ export const TOOLS_CONFIG: ToolItem[] = [
         description: '文本与 Base64 编码之间的互转',
         icon: 'Binary',
         category: ToolCategory.DEV,
-        status: 'dev'
+        status: 'ready'
     },
     {
         id: 'cron-checker',
