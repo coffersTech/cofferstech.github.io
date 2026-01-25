@@ -67,5 +67,13 @@ export const TOOLS_CONFIG: ToolItem[] = [
         icon: 'Network',
         category: ToolCategory.OPS,
         status: 'ready'
+    },
+    {
+        id: 'token-estimator',
+        name: 'Token 估算',
+        description: 'LLM Token 数量及费用预估',
+        icon: 'BrainCircuit',
+        category: ToolCategory.AI,
+        status: 'ready'
     }
 ];
