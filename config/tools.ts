@@ -75,5 +75,14 @@ export const TOOLS_CONFIG: ToolItem[] = [
         icon: 'BrainCircuit',
         category: ToolCategory.AI,
         status: 'ready'
+    },
+    {
+        id: 'math-render',
+        name: '公式预览',
+        description: 'LaTeX 数学公式实时编辑器',
+        icon: 'Sigma',
+        category: ToolCategory.AI,
+        status: 'ready',
+        width: 'max-w-full'
     }
 ];

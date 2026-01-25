@@ -50,7 +50,7 @@ export default function ToolCard({ tool, onClick }: ToolCardProps) {
                 {name}
             </h3>
 
-            <p className="text-[10px] text-gray-500 text-center leading-relaxed px-2">
+            <p className="text-[12px] text-gray-500 text-center leading-relaxed px-2">
                 {description}
             </p>
 

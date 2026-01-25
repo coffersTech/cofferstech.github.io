@@ -26,6 +26,10 @@ const TokenEstimator = dynamic(() => import('./apps/TokenEstimator'), {
     loading: () => <div className="p-8 text-center text-primary font-mono animate-pulse">[ LOADING_MODULE... ]</div>
 });
 
+const MathRender = dynamic(() => import('./apps/MathRender'), {
+    loading: () => <div className="p-8 text-center text-primary font-mono animate-pulse">[ LOADING_MODULE... ]</div>
+});
+
 export const TOOL_COMPONENTS: Record<string, ReactNode> = {
     'timestamp': <TimestampConverter />,
     'json-parser': <JsonParser />,
@@ -33,6 +37,7 @@ export const TOOL_COMPONENTS: Record<string, ReactNode> = {
     'cron-scheduler': <CronScheduler />,
     'cidr-calculator': <CidrCalculator />,
     'token-estimator': <TokenEstimator />,
+    'math-render': <MathRender />,
 };
 
 export function getToolComponent(toolId: string): ReactNode {
