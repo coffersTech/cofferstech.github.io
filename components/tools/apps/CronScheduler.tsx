@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import cronstrue from 'cronstrue';
+import cronstrue from 'cronstrue/i18n';
 import { Sparkles, CalendarClock, MousePointerClick } from 'lucide-react';
 
 export default function CronScheduler() {
@@ -29,7 +29,7 @@ export default function CronScheduler() {
             setExplanation(result);
             setError(null);
         } catch (err) {
-            setExplanation('Invalid Cron Expression');
+            setExplanation('无效的 Cron 表达式');
             setError(err instanceof Error ? err.message : '解析失败');
         }
     }, [cronExpression]);
@@ -55,7 +55,7 @@ export default function CronScheduler() {
             {/* Header: Large Display */}
             <div className="relative group pt-4">
                 <div className="absolute -top-4 left-0 text-[10px] text-primary/50 uppercase tracking-widest font-bold">
-                    [ MAIN_SCHEDULER_DISPLAY ]
+                    [ Cron 表达式主显示 ]
                 </div>
                 <input
                     type="text"
@@ -74,11 +74,11 @@ export default function CronScheduler() {
             {/* Builder Grid */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 {[
-                    { label: '分 (Minute)', key: 'minute', idx: 0 },
-                    { label: '时 (Hour)', key: 'hour', idx: 1 },
-                    { label: '日 (Day)', key: 'day', idx: 2 },
-                    { label: '月 (Month)', key: 'month', idx: 3 },
-                    { label: '周 (Week)', key: 'week', idx: 4 },
+                    { label: '分', key: 'minute', idx: 0 },
+                    { label: '时', key: 'hour', idx: 1 },
+                    { label: '日', key: 'day', idx: 2 },
+                    { label: '月', key: 'month', idx: 3 },
+                    { label: '周', key: 'week', idx: 4 },
                 ].map((item) => (
                     <div key={item.key} className="space-y-2">
                         <label className="text-[10px] uppercase text-gray-500 font-bold block px-1">
@@ -98,7 +98,7 @@ export default function CronScheduler() {
             <div className="space-y-4">
                 <div className="flex items-center gap-2 text-[11px] text-gray-500 uppercase tracking-widest font-bold border-b border-white/10 pb-2">
                     <MousePointerClick size={14} />
-                    <span>快速预设 (Presets)</span>
+                    <span>快速预设</span>
                 </div>
                 <div className="flex flex-wrap gap-3">
                     {PRESETS.map((p) => (
@@ -118,7 +118,7 @@ export default function CronScheduler() {
             {/* Help Info */}
             <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 space-y-2 text-[11px] text-primary/70">
                 <div className="font-bold flex items-center gap-2 uppercase">
-                    [ SYSTEM_HINT ]
+                    [ 系统提示 ]
                 </div>
                 <p>Cron 格式支持：分 时 日 月 周。解析基于标准的 Linux Cron 命令格式。</p>
                 <div className="flex gap-4 opacity-50">
