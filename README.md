@@ -20,6 +20,33 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Deployment
+
+To deploy the application to your server:
+
+1.  Copy `.env.example` to `.env`.
+2.  Fill in the required environment variables in `.env`:
+    *   `DEPLOY_USER`: Your SSH username.
+    *   `DEPLOY_HOST`: Your server's IP address or hostname.
+    *   `DEPLOY_PATH`: The destination path on the server (e.g., `/var/www/html`).
+    *   `DEPLOY_PORT`: SSH port (default is 22).
+
+3.  Run the deployment script:
+
+    ```bash
+    npm run deploy:server
+    ```
+
+    This will build the project and sync the `out/` directory to your server using `rsync` over SSH.
+
+### Nginx Configuration
+
+An example Nginx configuration file is provided in `scripts/nginx.conf.example`. To use it:
+
+1.  Copy the file to your server's Nginx configuration directory (usually `/etc/nginx/sites-available/`).
+2.  Update `server_name` and `root` path to match your deployment.
+3.  Enable the site and reload Nginx.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

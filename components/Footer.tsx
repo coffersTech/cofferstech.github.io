@@ -41,9 +41,19 @@ export default function Footer() {
                             </a>
                         ))}
                     </div>
-                    <p className="text-[10px] text-[#444] font-mono mt-auto">
-                        © 2026 饭桶日志. All rights reserved.
-                    </p>
+                    <div className="mt-auto flex flex-col gap-1">
+                        <p className="text-[10px] text-[#444] font-mono">
+                            © 2026 饭桶日志. All rights reserved.
+                        </p>
+                        <a
+                            href="https://beian.miit.gov.cn/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[10px] text-[#444] font-mono hover:text-primary transition-colors"
+                        >
+                            琼ICP备16000992号-5
+                        </a>
+                    </div>
                 </div>
             </div>
         </footer>
