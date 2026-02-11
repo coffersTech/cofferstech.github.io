@@ -23,8 +23,47 @@ const notoSansSC = Noto_Sans_SC({
 });
 
 export const metadata: Metadata = {
-  title: "饭桶日志",
-  description: "",
+  metadataBase: new URL("https://coffers.tech"),
+  title: "饭桶日志 - 技术博客与工具集合",
+  description: "专注于前端开发、运维工具和 AI 技术的中文技术博客，提供实用的开发工具和技术分享。",
+  keywords: "前端开发, Next.js, React, 开发工具, 技术博客, AI, 运维",
+  authors: [{ name: "饭桶日志", url: "https://coffers.tech" }],
+  openGraph: {
+    title: "饭桶日志 - 技术博客与工具集合",
+    description: "专注于前端开发、运维工具和 AI 技术的中文技术博客，提供实用的开发工具和技术分享。",
+    url: "https://coffers.tech",
+    siteName: "饭桶日志",
+    locale: "zh_CN",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "饭桶日志",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "饭桶日志 - 技术博客与工具集合",
+    description: "专注于前端开发、运维工具和 AI 技术的中文技术博客，提供实用的开发工具和技术分享。",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({
