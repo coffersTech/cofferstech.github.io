@@ -19,7 +19,7 @@ const spaceGrotesk = Space_Grotesk({
 
 const notoSansSC = Noto_Sans_SC({
   variable: "--font-noto-sans-sc",
-  subsets: ["latin"],
+  preload: false,
 });
 
 export const metadata: Metadata = {
