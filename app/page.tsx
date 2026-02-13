@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
 import ProjectShowcase from "@/components/ProjectShowcase";
+import ToolsShowcase from "@/components/ToolsShowcase";
 import LogStream from "@/components/LogStream";
 import { getSortedPostsData } from "@/lib/posts";
 
@@ -17,6 +18,8 @@ export default function Home() {
         <Hero />
 
         <ProjectShowcase />
+
+        <ToolsShowcase />
 
         <LogStream posts={allPostsData} />
       </main>

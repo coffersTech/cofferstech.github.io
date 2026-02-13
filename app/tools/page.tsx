@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ToolCard from '@/components/tools/ToolCard';
@@ -10,8 +11,16 @@ import { getToolComponent } from '@/components/tools/ToolRegistry';
 import { ConfigProvider, theme } from 'antd';
 
 export default function ToolsPage() {
-    const [activeToolId, setActiveToolId] = useState<string | null>(null);
+    const searchParams = useSearchParams();
+    const initialToolId = searchParams.get('id');
+    const [activeToolId, setActiveToolId] = useState<string | null>(initialToolId);
     const [filter, setFilter] = useState<ToolCategory | 'ALL'>('ALL');
+
+    // Update activeToolId if URL active param changes (optional, but good for back/forward nav)
+    useEffect(() => {
+        const id = searchParams.get('id');
+        if (id) setActiveToolId(id);
+    }, [searchParams]);
 
     const filteredTools = useMemo(() => {
         if (filter === 'ALL') return TOOLS_CONFIG;
