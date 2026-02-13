@@ -17,7 +17,7 @@ export default function Navbar() {
     const normalizePath = (p: string) => p.replace(/\/$/, '') || '/';
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-[#222] bg-background-dark/80 backdrop-blur-md">
+        <header className="sticky top-0 z-50 w-full border-b border-[#222] bg-background-dark/80 backdrop-blur-md font-display">
             <div className="max-w-[1200px] mx-auto flex items-center px-6 h-14">
                 {/* Left: Logo */}
                 <div className="flex-1 flex items-center gap-2 text-primary font-bold">
