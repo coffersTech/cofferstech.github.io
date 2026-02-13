@@ -3,6 +3,8 @@
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import TableOfContents from './TableOfContents';
+import RelatedPosts from './RelatedPosts';
+import type { PostMetadata as LibPostMetadata } from '@/lib/posts';
 
 interface Heading {
     level: number;
@@ -22,9 +24,10 @@ interface ArticleLayoutProps {
     children: React.ReactNode;
     headings: Heading[];
     metadata: PostMetadata;
+    relatedPosts?: LibPostMetadata[];
 }
 
-export default function ArticleLayout({ children, headings, metadata }: ArticleLayoutProps) {
+export default function ArticleLayout({ children, headings, metadata, relatedPosts }: ArticleLayoutProps) {
     const [readingProgress, setReadingProgress] = useState(0);
     const [fontSizeLevel, setFontSizeLevel] = useState(2); // 0: sm, 1: base, 2: lg, 3: xl, 4: 2xl
     const mainContentRef = useRef<HTMLElement>(null);
@@ -159,6 +162,8 @@ export default function ArticleLayout({ children, headings, metadata }: ArticleL
                                 </button>
                             </div>
                         </div>
+
+                        {relatedPosts && <RelatedPosts posts={relatedPosts} />}
 
                     </article>
                 </main>

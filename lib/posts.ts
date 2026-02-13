@@ -64,6 +64,45 @@ export function getPostContent(slug: string) {
     };
 }
 
+export function getRelatedPosts(currentSlug: string, tags: string[] = [], limit: number = 3): PostMetadata[] {
+    const allPosts = getPostMetadata();
+
+    // Filter out current post
+    const otherPosts = allPosts.filter(post => post.slug !== currentSlug);
+
+    if (!tags || tags.length === 0) {
+        // If no tags, just return recent posts
+        return otherPosts.slice(0, limit);
+    }
+
+    // Score posts by matching tags
+    const scoredPosts = otherPosts.map(post => {
+        let score = 0;
+        if (post.tags) {
+            post.tags.forEach((tag: string) => {
+                if (tags.includes(tag)) {
+                    score++;
+                }
+            });
+        }
+        return { post, score };
+    });
+
+    // Sort by score (descending) then date (descending)
+    scoredPosts.sort((a, b) => {
+        if (a.score !== b.score) {
+            return b.score - a.score;
+        }
+        return new Date(b.post.date).getTime() - new Date(a.post.date).getTime();
+    });
+
+    // Return top N posts
+    return scoredPosts
+        .filter(item => item.score > 0 || otherPosts.length < 5) // Keep some fallback if few posts match
+        .slice(0, limit)
+        .map(item => item.post);
+}
+
 function extractHeadings(content: string) {
     const headings: { level: number; text: string; id: string }[] = [];
     const lines = content.split('\n');

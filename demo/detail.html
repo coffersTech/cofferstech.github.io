@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="zh-Hans"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Rice Bucket Logs - Article Reading Experience</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="dark" lang="zh-Hans">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Rice Bucket Logs - Article Reading Experience</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="/app/globals.css" rel="stylesheet" />
+    <style>
+        @font-face {
+            font-family: 'Material Symbols Outlined';
+            font-style: normal;
+            font-weight: 100 700;
+            src: url('../public/fonts/MaterialSymbolsOutlined.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -20,24 +45,26 @@
                         "surface-dark": "#102210",
                     },
                     fontFamily: {
-                        "display": ["Space Grotesk", "sans-serif"],
-                        "body": ["Noto Sans", "sans-serif"],
-                        "mono": ["Fira Code", "monospace"]
+                        "display": ["Space Grotesk", "system-ui", "sans-serif"],
+                        "body": ["ui-sans-serif", "system-ui", "sans-serif"],
+                        "mono": ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"]
                     },
                     borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
                 },
             },
         }
     </script>
-<style>
+    <style>
         .glass-sidebar {
             background: rgba(16, 35, 16, 0.8);
             backdrop-filter: blur(12px);
             border-right: 1px solid rgba(13, 242, 13, 0.1);
         }
+
         .code-block {
             background: #050505;
         }
+
         .latex-formula {
             font-family: serif;
             font-style: italic;
@@ -45,154 +72,189 @@
         }
     </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark font-body text-slate-800 dark:text-slate-200 transition-colors duration-300">
-<!-- Progress Bar (Fixed Top) -->
-<div class="fixed top-0 left-0 w-full h-1 z-50 bg-background-dark/20">
-<div class="h-full bg-primary" style="width: 35%;"></div>
-</div>
-<div class="flex min-h-screen">
-<!-- Sidebar Navigation -->
-<aside class="hidden lg:flex flex-col w-80 h-screen sticky top-0 glass-sidebar p-6 overflow-y-auto">
-<div class="flex items-center gap-3 mb-10">
-<div class="text-primary">
-<svg class="w-8 h-8" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
-</svg>
-</div>
-<h2 class="font-display font-bold text-xl tracking-tight text-white">Rice Bucket Logs</h2>
-</div>
-<div class="flex flex-col gap-8">
-<div>
-<h3 class="font-display text-xs uppercase tracking-widest text-primary mb-4 font-bold">Table of Contents</h3>
-<nav class="flex flex-col gap-1">
-<a class="flex items-center gap-3 px-3 py-2 text-sm text-slate-400 hover:text-white transition-colors" href="#intro">
-<span class="material-symbols-outlined text-sm">info</span> Introduction
+
+<body
+    class="bg-background-light dark:bg-background-dark font-body text-slate-800 dark:text-slate-200 transition-colors duration-300">
+    <!-- Progress Bar (Fixed Top) -->
+    <div class="fixed top-0 left-0 w-full h-1 z-50 bg-background-dark/20">
+        <div class="h-full bg-primary" style="width: 35%;"></div>
+    </div>
+    <div class="flex min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="hidden lg:flex flex-col w-80 h-screen sticky top-0 glass-sidebar p-6 overflow-y-auto">
+            <div class="flex items-center gap-3 mb-10">
+                <div class="text-primary">
+                    <svg class="w-8 h-8" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"
+                            fill="currentColor"></path>
+                    </svg>
+                </div>
+                <h2 class="font-display font-bold text-xl tracking-tight text-white">Rice Bucket Logs</h2>
+            </div>
+            <div class="flex flex-col gap-8">
+                <div>
+                    <h3 class="font-display text-xs uppercase tracking-widest text-primary mb-4 font-bold">Table of
+                        Contents</h3>
+                    <nav class="flex flex-col gap-1">
+                        <a class="flex items-center gap-3 px-3 py-2 text-sm text-slate-400 hover:text-white transition-colors"
+                            href="#intro">
+                            <span class="material-symbols-outlined text-sm">info</span> Introduction
                         </a>
-<a class="flex items-center gap-3 px-3 py-2 text-sm text-slate-400 hover:text-white transition-colors" href="#background">
-<span class="material-symbols-outlined text-sm">history</span> Background
+                        <a class="flex items-center gap-3 px-3 py-2 text-sm text-slate-400 hover:text-white transition-colors"
+                            href="#background">
+                            <span class="material-symbols-outlined text-sm">history</span> Background
                         </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary font-medium border border-primary/20" href="#architecture">
-<span class="material-symbols-outlined text-sm">hub</span> Quantum Flux Architecture
+                        <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary font-medium border border-primary/20"
+                            href="#architecture">
+                            <span class="material-symbols-outlined text-sm">hub</span> Quantum Flux Architecture
                         </a>
-<div class="ml-8 flex flex-col gap-1 border-l border-primary/10 mt-1">
-<a class="px-4 py-1.5 text-xs text-slate-500 hover:text-primary" href="#flux-theory">Flux-Decoupling Theory</a>
-<a class="px-4 py-1.5 text-xs text-slate-500 hover:text-primary" href="#lattice-sync">Lattice Synchronization</a>
-</div>
-<a class="flex items-center gap-3 px-3 py-2 text-sm text-slate-400 hover:text-white transition-colors" href="#implementation">
-<span class="material-symbols-outlined text-sm">terminal</span> Implementation Details
+                        <div class="ml-8 flex flex-col gap-1 border-l border-primary/10 mt-1">
+                            <a class="px-4 py-1.5 text-xs text-slate-500 hover:text-primary"
+                                href="#flux-theory">Flux-Decoupling Theory</a>
+                            <a class="px-4 py-1.5 text-xs text-slate-500 hover:text-primary"
+                                href="#lattice-sync">Lattice Synchronization</a>
+                        </div>
+                        <a class="flex items-center gap-3 px-3 py-2 text-sm text-slate-400 hover:text-white transition-colors"
+                            href="#implementation">
+                            <span class="material-symbols-outlined text-sm">terminal</span> Implementation Details
                         </a>
-<a class="flex items-center gap-3 px-3 py-2 text-sm text-slate-400 hover:text-white transition-colors" href="#conclusion">
-<span class="material-symbols-outlined text-sm">check_circle</span> Conclusion
+                        <a class="flex items-center gap-3 px-3 py-2 text-sm text-slate-400 hover:text-white transition-colors"
+                            href="#conclusion">
+                            <span class="material-symbols-outlined text-sm">check_circle</span> Conclusion
                         </a>
-</nav>
-</div>
-<div>
-<h3 class="font-display text-xs uppercase tracking-widest text-slate-500 mb-4 font-bold">Meta</h3>
-<div class="flex flex-wrap gap-2">
-<div class="flex h-7 items-center gap-1.5 rounded-full bg-surface-dark px-3 border border-white/5">
-<span class="material-symbols-outlined text-xs text-primary">tag</span>
-<span class="text-[10px] text-slate-300 font-mono">Distributed</span>
-</div>
-<div class="flex h-7 items-center gap-1.5 rounded-full bg-surface-dark px-3 border border-white/5">
-<span class="material-symbols-outlined text-xs text-primary">bolt</span>
-<span class="text-[10px] text-slate-300 font-mono">Rust</span>
-</div>
-</div>
-</div>
-</div>
-<div class="mt-auto pt-6">
-<button class="w-full flex items-center justify-center gap-2 rounded-xl h-12 bg-primary text-background-dark font-display font-bold text-sm tracking-wide hover:opacity-90 transition-all">
-<span class="material-symbols-outlined text-lg">arrow_upward</span>
+                    </nav>
+                </div>
+                <div>
+                    <h3 class="font-display text-xs uppercase tracking-widest text-slate-500 mb-4 font-bold">Meta</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <div
+                            class="flex h-7 items-center gap-1.5 rounded-full bg-surface-dark px-3 border border-white/5">
+                            <span class="material-symbols-outlined text-xs text-primary">tag</span>
+                            <span class="text-[10px] text-slate-300 font-mono">Distributed</span>
+                        </div>
+                        <div
+                            class="flex h-7 items-center gap-1.5 rounded-full bg-surface-dark px-3 border border-white/5">
+                            <span class="material-symbols-outlined text-xs text-primary">bolt</span>
+                            <span class="text-[10px] text-slate-300 font-mono">Rust</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-auto pt-6">
+                <button
+                    class="w-full flex items-center justify-center gap-2 rounded-xl h-12 bg-primary text-background-dark font-display font-bold text-sm tracking-wide hover:opacity-90 transition-all">
+                    <span class="material-symbols-outlined text-lg">arrow_upward</span>
                     Back to Top
                 </button>
-</div>
-</aside>
-<!-- Main Content Area -->
-<main class="flex-1 flex flex-col items-center">
-<!-- Mobile Navigation / Header -->
-<header class="w-full lg:hidden flex items-center justify-between p-4 border-b border-white/5 bg-background-dark/50 backdrop-blur">
-<div class="flex items-center gap-2">
-<div class="text-primary size-6">
-<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
-</svg>
-</div>
-<span class="font-display font-bold text-white">Rice Bucket Logs</span>
-</div>
-<button class="material-symbols-outlined text-white">menu</button>
-</header>
-<article class="max-w-[800px] w-full px-6 py-12 lg:py-20">
-<!-- Article Heading -->
-<div class="flex flex-col gap-6 mb-16 border-b border-white/5 pb-12">
-<h1 class="font-display text-4xl lg:text-6xl font-black leading-[1.1] text-primary tracking-tight">
+            </div>
+        </aside>
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col items-center">
+            <!-- Mobile Navigation / Header -->
+            <header
+                class="w-full lg:hidden flex items-center justify-between p-4 border-b border-white/5 bg-background-dark/50 backdrop-blur">
+                <div class="flex items-center gap-2">
+                    <div class="text-primary size-6">
+                        <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"
+                                fill="currentColor"></path>
+                        </svg>
+                    </div>
+                    <span class="font-display font-bold text-white">Rice Bucket Logs</span>
+                </div>
+                <button class="material-symbols-outlined text-white">menu</button>
+            </header>
+            <article class="max-w-[800px] w-full px-6 py-12 lg:py-20">
+                <!-- Article Heading -->
+                <div class="flex flex-col gap-6 mb-16 border-b border-white/5 pb-12">
+                    <h1 class="font-display text-4xl lg:text-6xl font-black leading-[1.1] text-primary tracking-tight">
                         Exploring Quantum Flux in Distributed Systems
                     </h1>
-<div class="flex flex-wrap items-center gap-6">
-<div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
-<span class="material-symbols-outlined text-lg">calendar_today</span>
+                    <div class="flex flex-wrap items-center gap-6">
+                        <div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
+                            <span class="material-symbols-outlined text-lg">calendar_today</span>
                             Oct 24, 2023
                         </div>
-<div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
-<span class="material-symbols-outlined text-lg">schedule</span>
+                        <div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
+                            <span class="material-symbols-outlined text-lg">schedule</span>
                             12 min read
                         </div>
-<div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
-<span class="material-symbols-outlined text-lg">visibility</span>
+                        <div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
+                            <span class="material-symbols-outlined text-lg">visibility</span>
                             1.2k views
                         </div>
-</div>
-</div>
-<!-- Markdown Content Starts -->
-<div class="space-y-8 leading-relaxed text-lg text-slate-300">
-<p class="first-letter:text-5xl first-letter:font-bold first-letter:text-primary first-letter:mr-3 first-letter:float-left" id="intro">
-                        Distributed systems have long grappled with the consistency-availability tradeoff. However, the emergence of quantum-inspired flux architectures offers a third path—one where state transition uncertainty is embraced rather than fought.
+                    </div>
+                </div>
+                <!-- Markdown Content Starts -->
+                <div class="space-y-8 leading-relaxed text-lg text-slate-300">
+                    <p class="first-letter:text-5xl first-letter:font-bold first-letter:text-primary first-letter:mr-3 first-letter:float-left"
+                        id="intro">
+                        Distributed systems have long grappled with the consistency-availability tradeoff. However, the
+                        emergence of quantum-inspired flux architectures offers a third path—one where state transition
+                        uncertainty is embraced rather than fought.
                     </p>
-<h2 class="font-display text-3xl font-bold text-white pt-8" id="background">The Historical Context</h2>
-<p>
-                        Traditional consensus algorithms like Paxos and Raft rely on strict serialization. While effective, they introduce significant latency in globally distributed environments. The concept of <em>Quantum Flux</em> leverages probabilistic state convergence to achieve sub-millisecond eventual consistency.
+                    <h2 class="font-display text-3xl font-bold text-white pt-8" id="background">The Historical Context
+                    </h2>
+                    <p>
+                        Traditional consensus algorithms like Paxos and Raft rely on strict serialization. While
+                        effective, they introduce significant latency in globally distributed environments. The concept
+                        of <em>Quantum Flux</em> leverages probabilistic state convergence to achieve sub-millisecond
+                        eventual consistency.
                     </p>
-<!-- Quote Block -->
-<blockquote class="relative py-4 pl-6 pr-8 bg-surface-dark/40 border-l-4 border-primary rounded-r-lg italic text-slate-200 font-medium">
-                        "In a truly distributed universe, the concept of 'now' is a local illusion. Systems that respect this locality will always outperform those trying to enforce a global present."
-                        <cite class="block mt-3 not-italic text-sm text-primary font-mono">— The Architecture of Chaos (2021)</cite>
-</blockquote>
-<h2 class="font-display text-3xl font-bold text-white pt-8" id="architecture">Quantum Flux Architecture</h2>
-<p>
-                        The core of the flux model is defined by the synchronization of state tensors across n-dimensional nodes. Unlike traditional replication, we define the probability density of a state vector $\Psi$.
+                    <!-- Quote Block -->
+                    <blockquote
+                        class="relative py-4 pl-6 pr-8 bg-surface-dark/40 border-l-4 border-primary rounded-r-lg italic text-slate-200 font-medium">
+                        "In a truly distributed universe, the concept of 'now' is a local illusion. Systems that respect
+                        this locality will always outperform those trying to enforce a global present."
+                        <cite class="block mt-3 not-italic text-sm text-primary font-mono">— The Architecture of Chaos
+                            (2021)</cite>
+                    </blockquote>
+                    <h2 class="font-display text-3xl font-bold text-white pt-8" id="architecture">Quantum Flux
+                        Architecture</h2>
+                    <p>
+                        The core of the flux model is defined by the synchronization of state tensors across
+                        n-dimensional nodes. Unlike traditional replication, we define the probability density of a
+                        state vector $\Psi$.
                     </p>
-<!-- LaTeX Integration Mockup -->
-<div class="flex justify-center py-10 bg-surface-dark/20 rounded-xl my-8 border border-white/5">
-<div class="text-center">
-<div class="latex-formula text-3xl text-primary mb-2">
+                    <!-- LaTeX Integration Mockup -->
+                    <div class="flex justify-center py-10 bg-surface-dark/20 rounded-xl my-8 border border-white/5">
+                        <div class="text-center">
+                            <div class="latex-formula text-3xl text-primary mb-2">
                                 ∇ ⋅ E = ρ / ε₀
                             </div>
-<div class="latex-formula text-3xl text-primary mb-2">
+                            <div class="latex-formula text-3xl text-primary mb-2">
                                 ∇ ⋅ B = 0
                             </div>
-<div class="latex-formula text-3xl text-primary mb-2">
+                            <div class="latex-formula text-3xl text-primary mb-2">
                                 ∇ × E = −∂B / ∂t
                             </div>
-<div class="latex-formula text-3xl text-primary">
+                            <div class="latex-formula text-3xl text-primary">
                                 ∇ × B = μ₀J + μ₀ε₀ ∂E / ∂t
                             </div>
-<p class="text-xs font-mono text-slate-500 mt-6 uppercase tracking-widest">Fig 1.1: Maxwell's equations applied to flux-tensor synchronization</p>
-</div>
-</div>
-<h2 class="font-display text-3xl font-bold text-white pt-8" id="implementation">Implementation Details</h2>
-<p>
-                        To implement this in a memory-safe environment, we utilize Rust's ownership model to track flux-lifetimes. Below is a snippet of the primary synchronization loop.
+                            <p class="text-xs font-mono text-slate-500 mt-6 uppercase tracking-widest">Fig 1.1:
+                                Maxwell's equations applied to flux-tensor synchronization</p>
+                        </div>
+                    </div>
+                    <h2 class="font-display text-3xl font-bold text-white pt-8" id="implementation">Implementation
+                        Details</h2>
+                    <p>
+                        To implement this in a memory-safe environment, we utilize Rust's ownership model to track
+                        flux-lifetimes. Below is a snippet of the primary synchronization loop.
                     </p>
-<!-- Code Block -->
-<div class="rounded-xl overflow-hidden border border-white/10 code-block shadow-2xl">
-<div class="flex items-center justify-between px-4 py-2 bg-white/5 border-b border-white/10">
-<span class="text-xs font-mono text-slate-400">quantum_sync.rs</span>
-<button class="flex items-center gap-1 text-[10px] uppercase font-bold text-primary tracking-wider hover:opacity-80">
-<span class="material-symbols-outlined text-sm">content_copy</span>
+                    <!-- Code Block -->
+                    <div class="rounded-xl overflow-hidden border border-white/10 code-block shadow-2xl">
+                        <div class="flex items-center justify-between px-4 py-2 bg-white/5 border-b border-white/10">
+                            <span class="text-xs font-mono text-slate-400">quantum_sync.rs</span>
+                            <button
+                                class="flex items-center gap-1 text-[10px] uppercase font-bold text-primary tracking-wider hover:opacity-80">
+                                <span class="material-symbols-outlined text-sm">content_copy</span>
                                 Copy
                             </button>
-</div>
-<div class="p-6 overflow-x-auto">
-<pre class="font-mono text-sm leading-6 flex gap-4"><span class="text-slate-600 select-none text-right w-6">01</span><code class="text-slate-300"><span class="text-purple-400">use</span> std::sync::Arc;</code>
+                        </div>
+                        <div class="p-6 overflow-x-auto">
+                            <pre class="font-mono text-sm leading-6 flex gap-4"><span class="text-slate-600 select-none text-right w-6">01</span><code class="text-slate-300"><span class="text-purple-400">use</span> std::sync::Arc;</code>
 <span class="text-slate-600 select-none text-right w-6">02</span><code class="text-slate-300"><span class="text-purple-400">use</span> tokio::sync::Mutex;</code>
 <span class="text-slate-600 select-none text-right w-6">03</span><code class="text-slate-300"></code>
 <span class="text-slate-600 select-none text-right w-6">04</span><code class="text-slate-300"><span class="text-blue-400">async fn</span> <span class="text-primary">initiate_flux_cycle</span>(state: Arc&lt;Mutex&lt;Tensor&gt;&gt;) {</code>
@@ -204,55 +266,68 @@
 <span class="text-slate-600 select-none text-right w-6">10</span><code class="text-slate-300">    }</code>
 <span class="text-slate-600 select-none text-right w-6">11</span><code class="text-slate-300">}</code>
                             </pre>
-</div>
-</div>
-<h2 class="font-display text-3xl font-bold text-white pt-8" id="conclusion">Final Log Thoughts</h2>
-<p>
-                        While the implementation is still in the "log phase," the initial results are promising. We are seeing a 40% reduction in consensus-related overhead. In the next post, we'll dive into the hardware acceleration required for these tensor operations.
+                        </div>
+                    </div>
+                    <h2 class="font-display text-3xl font-bold text-white pt-8" id="conclusion">Final Log Thoughts</h2>
+                    <p>
+                        While the implementation is still in the "log phase," the initial results are promising. We are
+                        seeing a 40% reduction in consensus-related overhead. In the next post, we'll dive into the
+                        hardware acceleration required for these tensor operations.
                     </p>
-<div class="pt-12 mt-12 border-t border-white/5 flex flex-col items-center gap-6">
-<div class="text-slate-500 font-mono text-sm uppercase tracking-widest">End of Log Entry</div>
-<div class="flex gap-4">
-<button class="flex items-center gap-2 rounded-xl bg-surface-dark px-6 py-3 border border-white/5 hover:border-primary/50 transition-colors">
-<span class="material-symbols-outlined text-primary">share</span>
-<span class="text-sm font-medium">Share</span>
-</button>
-<button class="flex items-center gap-2 rounded-xl bg-surface-dark px-6 py-3 border border-white/5 hover:border-primary/50 transition-colors">
-<span class="material-symbols-outlined text-primary">bookmark</span>
-<span class="text-sm font-medium">Save</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Footer Section -->
-<footer class="mt-20 py-10 border-t border-white/5 text-slate-500 text-sm">
-<div class="flex justify-between items-center">
-<p>© 2023 Rice Bucket Logs. Built with Rust &amp; Neon.</p>
-<div class="flex gap-6">
-<a class="hover:text-primary" href="#">Twitter</a>
-<a class="hover:text-primary" href="#">GitHub</a>
-<a class="hover:text-primary" href="#">RSS</a>
-</div>
-</div>
-</footer>
-</article>
-</main>
-<!-- Reading Controls (Fixed Right) -->
-<aside class="hidden xl:flex flex-col w-20 h-screen sticky top-0 py-12 items-center gap-8 border-l border-white/5">
-<button class="group relative flex items-center justify-center size-10 rounded-full bg-surface-dark border border-white/5 hover:border-primary/50 transition-all">
-<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">light_mode</span>
-<span class="absolute right-14 scale-0 group-hover:scale-100 bg-background-dark border border-white/10 px-2 py-1 text-[10px] text-white rounded whitespace-nowrap transition-all">Theme Switch</span>
-</button>
-<button class="group relative flex items-center justify-center size-10 rounded-full bg-surface-dark border border-white/5 hover:border-primary/50 transition-all">
-<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">text_fields</span>
-<span class="absolute right-14 scale-0 group-hover:scale-100 bg-background-dark border border-white/10 px-2 py-1 text-[10px] text-white rounded whitespace-nowrap transition-all">Font Size</span>
-</button>
-<div class="w-px h-full bg-white/5 flex flex-col items-center">
-<div class="w-1 bg-primary rounded-full transition-all" style="height: 35%;"></div>
-</div>
-<div class="font-mono text-[10px] text-slate-500 rotate-90 whitespace-nowrap mb-8">
+                    <div class="pt-12 mt-12 border-t border-white/5 flex flex-col items-center gap-6">
+                        <div class="text-slate-500 font-mono text-sm uppercase tracking-widest">End of Log Entry</div>
+                        <div class="flex gap-4">
+                            <button
+                                class="flex items-center gap-2 rounded-xl bg-surface-dark px-6 py-3 border border-white/5 hover:border-primary/50 transition-colors">
+                                <span class="material-symbols-outlined text-primary">share</span>
+                                <span class="text-sm font-medium">Share</span>
+                            </button>
+                            <button
+                                class="flex items-center gap-2 rounded-xl bg-surface-dark px-6 py-3 border border-white/5 hover:border-primary/50 transition-colors">
+                                <span class="material-symbols-outlined text-primary">bookmark</span>
+                                <span class="text-sm font-medium">Save</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer Section -->
+                <footer class="mt-20 py-10 border-t border-white/5 text-slate-500 text-sm">
+                    <div class="flex justify-between items-center">
+                        <p>© 2023 Rice Bucket Logs. Built with Rust &amp; Neon.</p>
+                        <div class="flex gap-6">
+                            <a class="hover:text-primary" href="#">Twitter</a>
+                            <a class="hover:text-primary" href="#">GitHub</a>
+                            <a class="hover:text-primary" href="#">RSS</a>
+                        </div>
+                    </div>
+                </footer>
+            </article>
+        </main>
+        <!-- Reading Controls (Fixed Right) -->
+        <aside
+            class="hidden xl:flex flex-col w-20 h-screen sticky top-0 py-12 items-center gap-8 border-l border-white/5">
+            <button
+                class="group relative flex items-center justify-center size-10 rounded-full bg-surface-dark border border-white/5 hover:border-primary/50 transition-all">
+                <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">light_mode</span>
+                <span
+                    class="absolute right-14 scale-0 group-hover:scale-100 bg-background-dark border border-white/10 px-2 py-1 text-[10px] text-white rounded whitespace-nowrap transition-all">Theme
+                    Switch</span>
+            </button>
+            <button
+                class="group relative flex items-center justify-center size-10 rounded-full bg-surface-dark border border-white/5 hover:border-primary/50 transition-all">
+                <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">text_fields</span>
+                <span
+                    class="absolute right-14 scale-0 group-hover:scale-100 bg-background-dark border border-white/10 px-2 py-1 text-[10px] text-white rounded whitespace-nowrap transition-all">Font
+                    Size</span>
+            </button>
+            <div class="w-px h-full bg-white/5 flex flex-col items-center">
+                <div class="w-1 bg-primary rounded-full transition-all" style="height: 35%;"></div>
+            </div>
+            <div class="font-mono text-[10px] text-slate-500 rotate-90 whitespace-nowrap mb-8">
                 35% READ
             </div>
-</aside>
-</div>
-</body></html>
+        </aside>
+    </div>
+</body>
+
+</html>

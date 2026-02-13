@@ -43,23 +43,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
     ];
 
-    // 3. (Optional) 手动添加还在计划中的 10 篇产品思维实战文章
-    const productThinkingSeries = Array.from({ length: 10 }).map((_, i) => {
-        // 假设 URL 格式为：product-thinking-practice-01-mvp
-        // 这里简化为 product-thinking-practice-01, 实际应根据 slug 生成
-        const index = (i + 1).toString().padStart(2, "0");
-        const slug = `product-thinking-practice-${index}`;
-        // 注意：如果这些文件还不存在，建议先注释掉或确保它们稍后会被创建，
-        // 否则 Google 爬虫会抓取到 404。
-        // 为了演示这里暂时包含它们：
-        return {
-            url: `${baseUrl}/blog/${slug}`, // 示例 slug
-            lastModified: new Date("2026-02-12"),
-            changeFrequency: "weekly" as const,
-            priority: 0.7,
-        };
-    });
-
     // 合并所有 URL
-    return [...routes, ...postUrls, ...productThinkingSeries];
+    return [...routes, ...postUrls];
 }

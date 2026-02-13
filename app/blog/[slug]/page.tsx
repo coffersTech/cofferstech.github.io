@@ -1,4 +1,4 @@
-import { getPostContent, getPostMetadata } from "@/lib/posts";
+import { getPostContent, getPostMetadata, getRelatedPosts } from "@/lib/posts";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import remarkMath from 'remark-math';
@@ -20,8 +20,10 @@ export default function PostPage({ params }: { params: { slug: string } }) {
     const { slug } = params;
 
     let post;
+    let relatedPosts = [];
     try {
         post = getPostContent(slug);
+        relatedPosts = getRelatedPosts(slug, post.metadata.tags);
     } catch (error) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center bg-background-dark text-primary font-mono">
@@ -31,7 +33,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
     }
 
     return (
-        <ArticleLayout headings={post.headings} metadata={post.metadata}>
+        <ArticleLayout headings={post.headings} metadata={post.metadata} relatedPosts={relatedPosts}>
             <MDXRemote
                 source={post.content}
                 options={{

@@ -1,25 +1,24 @@
 import type { Metadata } from "next";
-import { Inter, Roboto_Mono, Space_Grotesk, Noto_Sans_SC } from "next/font/google";
+import { Inter, Roboto_Mono, Space_Grotesk } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const inter = Inter({
-  variable: "--font-inter",
   subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 const robotoMono = Roboto_Mono({
-  variable: "--font-roboto-mono",
   subsets: ["latin"],
+  variable: "--font-roboto-mono",
+  display: "swap",
 });
 
 const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
   subsets: ["latin"],
-});
-
-const notoSansSC = Noto_Sans_SC({
-  variable: "--font-noto-sans-sc",
-  preload: false,
+  variable: "--font-space-grotesk",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -61,6 +60,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
   alternates: {
     canonical: "/",
   },
@@ -74,12 +76,12 @@ export default function RootLayout({
   return (
     <html lang="zh-Hans" className="dark">
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
       <body
-        className={`${inter.variable} ${robotoMono.variable} ${spaceGrotesk.variable} ${notoSansSC.variable} antialiased bg-background-light dark:bg-background-dark font-display text-white selection:bg-primary selection:text-black`}
+        className={`${inter.variable} ${robotoMono.variable} ${spaceGrotesk.variable} antialiased bg-background-light dark:bg-background-dark font-display text-white selection:bg-primary selection:text-black`}
       >
         {children}
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ""} />
       </body>
     </html>
   );

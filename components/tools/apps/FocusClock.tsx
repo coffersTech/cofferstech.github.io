@@ -474,7 +474,7 @@ export default function FocusClock() {
             )}
 
             <style jsx global>{`
-                @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
+                // Used system monospace font instead of external import
                 
                 .font-mono {
                     font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
