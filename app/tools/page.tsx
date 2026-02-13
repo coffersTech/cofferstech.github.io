@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -10,7 +10,7 @@ import { TOOLS_CONFIG, ToolCategory, ToolCategoryLabels } from '@/config/tools';
 import { getToolComponent } from '@/components/tools/ToolRegistry';
 import { ConfigProvider, theme } from 'antd';
 
-export default function ToolsPage() {
+function ToolsContent() {
     const searchParams = useSearchParams();
     const initialToolId = searchParams.get('id');
     const [activeToolId, setActiveToolId] = useState<string | null>(initialToolId);
@@ -22,12 +22,12 @@ export default function ToolsPage() {
         if (id) setActiveToolId(id);
     }, [searchParams]);
 
+    const activeTool = TOOLS_CONFIG.find(t => t.id === activeToolId);
+
     const filteredTools = useMemo(() => {
         if (filter === 'ALL') return TOOLS_CONFIG;
         return TOOLS_CONFIG.filter(t => t.category === filter);
     }, [filter]);
-
-    const activeTool = TOOLS_CONFIG.find(t => t.id === activeToolId);
 
     return (
         <ConfigProvider
@@ -116,5 +116,13 @@ export default function ToolsPage() {
                 <Footer />
             </div>
         </ConfigProvider>
+    );
+}
+
+export default function ToolsPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-background-dark text-white flex items-center justify-center font-mono">Loading modules...</div>}>
+            <ToolsContent />
+        </Suspense>
     );
 }
