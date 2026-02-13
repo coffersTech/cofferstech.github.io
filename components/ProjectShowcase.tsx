@@ -1,4 +1,9 @@
-import { PROJECTS } from "@/config/projects";
+'use client';
+
+import { PROJECTS, Project } from "@/config/projects";
+import Link from "next/link";
+import { useState } from "react";
+import ProjectModal from "./ProjectModal";
 
 const statusColors: Record<string, string> = {
     Dev: "border-accent-blue text-accent-blue bg-accent-blue/10",
@@ -8,6 +13,8 @@ const statusColors: Record<string, string> = {
 };
 
 export default function ProjectShowcase() {
+    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
     return (
         <section className="flex flex-col gap-6 mt-20">
             <div className="flex items-center justify-between border-b border-[#222] pb-4">
@@ -15,19 +22,20 @@ export default function ProjectShowcase() {
                     <span className="material-symbols-outlined text-primary">folder_open</span>
                     项目展示 (Projects)
                 </h3>
-                <div className="text-xs text-[#444] font-mono">
-                    TOTAL: {PROJECTS.length}
-                </div>
+                <Link
+                    href="/projects"
+                    className="text-xs text-[#444] font-mono hover:text-primary transition-colors flex items-center gap-1"
+                >
+                    VIEW ALL <span className="material-symbols-outlined text-[12px]">arrow_forward</span>
+                </Link>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {PROJECTS.map((project, index) => (
-                    <a
+                    <div
                         key={index}
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group relative p-6 rounded-lg border border-[#333] bg-[#0a0a0a] hover:border-primary/50 transition-all overflow-hidden"
+                        onClick={() => setSelectedProject(project)}
+                        className="group relative p-6 rounded-lg border border-[#333] bg-[#0a0a0a] hover:border-primary/50 transition-all overflow-hidden cursor-pointer"
                     >
                         {/* Hover Scanline Effect */}
                         <div className="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out pointer-events-none" />
@@ -61,9 +69,15 @@ export default function ProjectShowcase() {
                                 ))}
                             </div>
                         </div>
-                    </a>
+                    </div>
                 ))}
             </div>
+
+            <ProjectModal
+                isOpen={!!selectedProject}
+                onClose={() => setSelectedProject(null)}
+                project={selectedProject}
+            />
         </section>
     );
 }

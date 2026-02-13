@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { PROJECTS, type Project } from '@/config/projects';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ProjectModal from '@/components/ProjectModal';
 
 // Get unique tech stacks for filter tabs
 const allTechStacks = [...new Set(PROJECTS.flatMap(p => p.techStack))];
@@ -26,6 +27,7 @@ const stats = [
 
 export default function ProjectsPage() {
     const [activeFilter, setActiveFilter] = useState('全部');
+    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     const filteredProjects = activeFilter === '全部'
         ? PROJECTS
@@ -69,7 +71,8 @@ export default function ProjectsPage() {
                     {filteredProjects.map((project) => (
                         <div
                             key={project.name}
-                            className="border border-[#222] rounded-lg p-6 bg-[#0d0d0d] hover:border-primary/50 transition-all group"
+                            onClick={() => setSelectedProject(project)}
+                            className="border border-[#222] rounded-lg p-6 bg-[#0d0d0d] hover:border-primary/50 transition-all group cursor-pointer"
                         >
                             {/* Card Header */}
                             <div className="flex items-start justify-between mb-4">
@@ -99,15 +102,12 @@ export default function ProjectsPage() {
                             </div>
 
                             {/* View Code Button */}
-                            <a
-                                href={project.githubUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <button
                                 className="flex items-center justify-center gap-2 w-full py-3 border border-primary rounded-lg text-primary font-medium hover:bg-primary hover:text-black transition-all"
                             >
                                 <span>&lt;&gt;</span>
-                                <span>查看代码</span>
-                            </a>
+                                <span>查看详情</span>
+                            </button>
                         </div>
                     ))}
                 </div>
@@ -134,7 +134,15 @@ export default function ProjectsPage() {
                     ))}
                 </div>
             </div>
+
             <Footer />
+
+            <ProjectModal
+                isOpen={!!selectedProject}
+                onClose={() => setSelectedProject(null)}
+                project={selectedProject}
+            />
         </div>
     );
 }
+

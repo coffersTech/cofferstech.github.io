@@ -10,26 +10,10 @@ export interface Project {
 export const PROJECTS: Project[] = [
     {
         name: "NanoLog",
-        description: "A lightweight, zero-dependency structured logger for Go services.",
+        description: "NanoLog 是一个专为云原生设计的轻量级日志存储引擎。它不像 Elasticsearch 那样沉重，也不像 Plain Text 那样难以检索。它定位为日志界的 SQLite：单二进制文件、极致性能、内置管理面板。",
         techStack: ["Go", "Performance", "Zero-alloc"],
         status: "Prod",
-        githubUrl: "https://github.com/copycode-ryan/nanolog",
+        githubUrl: "https://github.com/coffersTech/nanolog.git",
         featured: true,
-    },
-    {
-        name: "VeloxSync",
-        description: "Real-time state synchronization engine for collaborative apps.",
-        techStack: ["Rust", "WebSockets", "CRDT"],
-        status: "Beta",
-        githubUrl: "https://github.com/copycode-ryan/veloxsync",
-        featured: true,
-    },
-    {
-        name: "LUMA",
-        description: "AI-driven layout generator for modern web interfaces.",
-        techStack: ["TypeScript", "Next.js", "OpenAI"],
-        status: "Dev",
-        githubUrl: "https://github.com/copycode-ryan/luma",
-        featured: true,
-    },
+    }
 ];
